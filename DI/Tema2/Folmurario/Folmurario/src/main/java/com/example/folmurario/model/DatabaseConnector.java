@@ -1,4 +1,4 @@
-package com.example.folmurario.model; // O donde la hayas creado
+package com.example.folmurario.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ public class DatabaseConnector {
 
     // El Host es 'localhost' (127.0.0.1)
     // El Puerto es '3307' (el que mapeaste en Docker)
-    // La Base de Datos es 'mi_app_javafx' (la que creaste en el Paso 5)
+    // La Base de Datos es 'mi_app_javafx' (la que creamos en Workbench)
     private static final String DB_URL = "jdbc:mysql://localhost:3307/mi_app_javafx";
 
     // El usuario ('root')
@@ -20,7 +20,6 @@ public class DatabaseConnector {
     private static final String PASSWORD = "1234";
     // ------------------------------------
 
-
     /**
      * Intenta establecer una conexión con la base de datos.
      * @return un objeto Connection si tiene éxito, o null si falla.
@@ -28,8 +27,7 @@ public class DatabaseConnector {
     public static Connection getConnection() {
         Connection connection = null;
         try {
-            // 1. Cargar el driver (ya no es necesario en JDBC 4.0+,
-            //    pero es buena práctica)
+            // 1. Cargar el driver (aunque en JDBC 4.0+ es automático)
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // 2. Intentar la conexión
@@ -48,7 +46,7 @@ public class DatabaseConnector {
             System.err.println("Verifica:");
             System.err.println("1. Que el contenedor Docker 'mi-mysql-db' esté corriendo (docker ps).");
             System.err.println("2. Que la URL, USER y PASSWORD sean correctos en esta clase.");
-            System.err.println("3. Que la base de datos 'mi_app_javafx' exista (Paso 5).");
+            System.err.println("3. Que la base de datos 'mi_app_javafx' exista.");
             e.printStackTrace();
         }
         return connection;
