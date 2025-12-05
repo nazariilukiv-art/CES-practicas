@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ui.DetalleActivity">
+
+    <ImageView
+        android:id="@+id/imagenDetalle"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/producto" />
+
+    <TextView
+        android:id="@+id/nombreDetalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="24sp"
+        tools:text="Nombre Producto" />
+
+    <TextView
+        android:id="@+id/descripcionDetalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        tools:text="Descripción del producto" />
+
+    <TextView
+        android:id="@+id/precioDetalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        tools:text="100 €" />
+
+</LinearLayout>

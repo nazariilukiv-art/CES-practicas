@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:gravity="center"
+        android:text="Calcular Nota Final">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:text="Introduce Nota de Examen:"
+        android:layout_marginTop="16dp">
+
+    </TextView>
+    <EditText
+        android:id="@+id/edit_text_nota_examen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nota de examen"
+        android:inputType="numberDecimal">
+    </EditText>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:text="Introduce Nota de Trabajos:"
+        android:layout_marginTop="16dp">
+
+    </TextView>
+    <EditText
+        android:id="@+id/edit_text_nota_trabajo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nota de trabajos"
+        android:inputType="numberDecimal">
+    </EditText>
+
+    <TextView
+        android:layout_marginTop="26sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Asistencia:"
+        android:textSize="18sp">
+
+    </TextView>
+
+    <RadioGroup
+        android:id="@+id/radio_group_asistencia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioboton_asistencia_buena"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buena">
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/radioboton_asistencia_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Regular"
+            android:layout_marginStart="24dp">
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/radioboton_asistencia_mala"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mala"
+            android:layout_marginStart="24dp">
+        </RadioButton>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/boton_validacion"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Validación">
+
+    </Button>
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

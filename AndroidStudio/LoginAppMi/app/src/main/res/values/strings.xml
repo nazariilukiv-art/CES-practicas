@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">LoginAppMi</string>
+    <string name="text_login">Iniciar sesión</string>
+    <string-array name="plataformas">
+        <item>Google</item>
+        <item>GitHub</item>
+        <item>Facebook</item>
+    </string-array>
+</resources>

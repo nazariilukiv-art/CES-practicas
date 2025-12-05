@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<BorderPane fx:id="panelGeneral" prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.calculadoraapp.CalculadoraController">
+    <top>
+        <TextField fx:id="display" prefHeight="60.0" alignment="CENTER_RIGHT">
+            <BorderPane.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </BorderPane.margin>
+        </TextField>
+    </top>
+
+    <center>
+        <HBox spacing="10.0"> <children>
+            <GridPane hgap="5.0" vgap="5.0" HBox.hgrow="ALWAYS">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+
+                <Button fx:id="botonSiete" text="7" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <Button fx:id="botonOcho" text="8" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                <Button fx:id="botonNueve" text="9" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <Button fx:id="botonDividir" text="/" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                <Button fx:id="botonCuatro" text="4" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <Button fx:id="botonCinco" text="5" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Button fx:id="botonSeis" text="6" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <Button fx:id="botonMultiplicar" text="*" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                <Button fx:id="botonUno" text="1" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <Button fx:id="botonDos" text="2" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Button fx:id="botonTres" text="3" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                <Button fx:id="botonRestar" text="-" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+                <Button fx:id="botonClear" text="C" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <Button fx:id="botonCero" text="0" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <Button fx:id="botonPunto" text="." maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                <Button fx:id="botonSumar" text="+" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+
+                <Button fx:id="botonDel" text="DEL" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="4"
+                        GridPane.columnSpan="2"/>
+                <Button fx:id="botonIgual" text="=" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="4"
+                        GridPane.columnSpan="2"/>
+            </GridPane>
+
+            <GridPane fx:id="panelCientifico" hgap="5.0" vgap="5.0" HBox.hgrow="ALWAYS">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+
+                <Button fx:id="botonSin" text="sin" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <Button fx:id="botonCos" text="cos" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <Button fx:id="botonTan" text="tan" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <Button fx:id="botonLog" text="log" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <Button fx:id="botonSqrt" text="sqrt" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            </GridPane>
+        </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+        </HBox>
+    </center>
+
+    <bottom>
+        <FlowPane alignment="CENTER" hgap="20.0">
+            <children>
+                <ToggleButton fx:id="toggleCientifica" text="Modo Científica"/>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+        </FlowPane>
+    </bottom>
+</BorderPane>

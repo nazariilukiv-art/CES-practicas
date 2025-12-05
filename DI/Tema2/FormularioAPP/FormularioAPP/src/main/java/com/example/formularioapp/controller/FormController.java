@@ -18,11 +18,13 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.example.formularioapp.HelloApplication;
+import com.example.formularioapp.dao.UsuarioDAOImp;
 import com.example.formularioapp.model.Usuario;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -72,6 +74,8 @@ public class FormController implements Initializable {
     private ObservableList<Integer> listaEdades;
     private ObservableList<Usuario> listaUsuarios;
 
+    private UsuarioDAOImp usuarioDAOImp;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -106,26 +110,21 @@ public class FormController implements Initializable {
                 }
             }
         });
-
-        panelGeneral.setOnKeyPressed(e -> {
-            if (e.isControlDown() && e.getCode().toString().equals("L")) {
-                toggleLista.setSelected(!toggleLista.isSelected());
-            }
-        });
-
     }
 
     private void instancias() {
+        usuarioDAOImp = new UsuarioDAOImp();
         grupoGenero = new ToggleGroup();
-        grupoGenero.getToggles().addAll(radioMasculino, radioFemenino);
         listaEdades = FXCollections.observableArrayList();
-        listaUsuarios = FXCollections.observableArrayList();
-        for (int i = 18; i < 91; i++) {
-            listaEdades.add(i);
-        }
+        listaUsuarios =
+                FXCollections.observableArrayList(usuarioDAOImp.obtenerUsuarios());
     }
 
     private void initGUI() {
+        grupoGenero.getToggles().addAll(radioMasculino, radioFemenino);
+        for (int i = 18; i < 91; i++) {
+            listaEdades.add(i);
+        }
         listViewUsuarios.setItems(listaUsuarios);
         comboEdad.setItems(listaEdades);
         botonAgregar.setDisable(!checkDisponibilidad.isSelected());
@@ -179,22 +178,45 @@ public class FormController implements Initializable {
                     String genero = ((RadioButton) grupoGenero.getSelectedToggle()).getText();
                     boolean disponibilidad = checkDisponibilidad.isSelected();
                     int edad = comboEdad.getSelectionModel().getSelectedItem();
+                    Usuario usuario = new Usuario(
+                            nombre, correo, localizacion, genero, edad, disponibilidad
+                    );
+                    boolean fallo = false;
+                    try {
+                        usuarioDAOImp.insertarUsuario(usuario);
+                        listaUsuarios.add(usuario);
+                    } catch (SQLException e) {
+                        fallo = true;
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error en insercion");
+                        alert.setContentText("Mail duplicado, por favor introduce uno nuevo");
+                        alert.show();
+                    }
+                    if (!fallo){
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Insercion correcta");
+                        alert.setContentText("Usuario insertado correctamente");
+                        alert.show();
+                        limpiarDatos();
+                    }
 
+                    /*
                     if (estaUsuario(correo) != null) {
 
                         System.out.println("El usuario ya esta en la lista");
                     } else {
-                        Usuario usuario = new Usuario(
-                                nombre, correo, localizacion, genero, edad, disponibilidad
-                        );
+
                         listaUsuarios.add(usuario);
                         System.out.println("Usuario agregado correctamente");
                         limpiarDatos();
                     }
+
+                     */
                 }
 
                 // limpiar todos los datso
-            } else if (actionEvent.getSource() == botonDetalle || actionEvent.getSource() == menuDetalle ) {
+            }
+            else if (actionEvent.getSource() == botonDetalle || actionEvent.getSource() == menuDetalle ) {
                 int posicionSeleccionada = listViewUsuarios.getSelectionModel().getSelectedIndex();
                 if (posicionSeleccionada != -1) {
                     Usuario usuario = listViewUsuarios.getSelectionModel().getSelectedItem();
@@ -221,8 +243,23 @@ public class FormController implements Initializable {
 
                  */
             } else if (actionEvent.getSource() == botonEliminar || actionEvent.getSource() == menuEliminar) {
-                if (listViewUsuarios.getSelectionModel().getSelectedIndex() != -1) {
-                    listaUsuarios.remove(listViewUsuarios.getSelectionModel().getSelectedIndex());
+
+                // --- ¡AQUÍ ESTÁ LA CORRECCIÓN! ---
+                // 1. Obtenemos el índice SELECCIONADO y lo GUARDAMOS en una variable
+                int posicionSeleccionada = listViewUsuarios.getSelectionModel().getSelectedIndex();
+
+                // 2. Comprobamos si el índice es válido (si algo está seleccionado)
+                if (posicionSeleccionada != -1) {
+
+                    // 3. Coge el objeto 'Usuario' usando la variable que SÍ existe
+                    Usuario usuarioParaBorrar = listaUsuarios.get(posicionSeleccionada);
+
+                    // 4. Llama al DAO para borrarlo de la BBDD
+                    usuarioDAOImp.borrarUsuarios(usuarioParaBorrar.getNombre());
+
+                    // 5. Bórralo de la lista visual
+                    listaUsuarios.remove(posicionSeleccionada);
+
                 } else {
                     System.out.println("No hay nada seleccionado");
                     Stage ventanaDialogo = new Stage();
@@ -241,8 +278,9 @@ public class FormController implements Initializable {
                 }
 
             }
-
-
+            else if (actionEvent.getSource() == menuLista){
+                toggleLista.setSelected(!toggleLista.isSelected());
+            }
         }
     }
 }

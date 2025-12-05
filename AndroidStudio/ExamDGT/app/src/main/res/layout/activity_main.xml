@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:text="DGT APP"
+        android:textSize="32sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <EditText
+        android:layout_marginTop="16dp"
+        android:id="@+id/edit_nombre_apellido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Introduce Nombre y Apellido"
+        android:inputType="text"
+        >
+
+    </EditText>
+
+    <EditText
+        android:layout_marginTop="16dp"
+        android:id="@+id/edit_matricula_coche"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Introduce Matricula de Coche"
+        android:inputType="text"
+        >
+    </EditText>
+
+    <EditText
+        android:layout_marginTop="16dp"
+        android:id="@+id/edit_ano_de_matriculacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Introduce Año de matriculación"
+        android:inputType="number"
+        >
+
+    </EditText>
+
+    <Spinner
+        android:id="@+id/spiner_tipo_gasolina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:entries="@array/tipoGasolina">
+
+    </Spinner>
+
+    <EditText
+        android:layout_marginTop="16dp"
+        android:id="@+id/edit_autonomia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Introduce Autonomia"
+        >
+
+    </EditText>
+
+
+
+    <RadioGroup
+        android:id="@+id/radio_group_tipo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_buton_gasolina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="gasolina">
+
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/radio_buton_disel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="disel">
+
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/radio_buton_electrico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="electrico">
+
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/radio_buton_hibrido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hibrido">
+
+        </RadioButton>
+
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/boton_revisar"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Revisar"
+        >
+
+    </Button>
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

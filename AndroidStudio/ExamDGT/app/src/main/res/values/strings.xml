@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ExamDGT</string>
+    <string-array name="tipoGasolina">
+        <item>disel</item>
+        <item>gasolina</item>
+        <item>hibrido</item>
+        <item>eléctrico</item>
+    </string-array>
+</resources>

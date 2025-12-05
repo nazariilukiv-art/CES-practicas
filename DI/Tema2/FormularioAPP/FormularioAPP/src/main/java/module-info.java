@@ -18,8 +18,10 @@ module com.example.formularioapp {
 
     opens com.example.formularioapp to javafx.fxml, java.sql;
     exports com.example.formularioapp;
-    exports com.example.formularioapp.controller;
+
+
     opens com.example.formularioapp.controller to javafx.fxml, java.sql;
+    exports com.example.formularioapp.controller;
 
     opens com.example.formularioapp.model to lombok, java.sql;
     exports com.example.formularioapp.model;
