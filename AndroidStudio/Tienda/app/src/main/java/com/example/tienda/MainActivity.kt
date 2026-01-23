@@ -2,103 +2,157 @@ package com.example.tienda
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
+
 import androidx.appcompat.app.AppCompatActivity
+
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tienda.adapter.AdapterProducto
+import com.example.tienda.databinding.ActivityCarritoBinding
 import com.example.tienda.databinding.ActivityMainBinding
 import com.example.tienda.dataset.DataSet
 import com.example.tienda.model.Producto
-import com.example.tienda.ui.CarritoActivity
+import com.example.tienda.ui.activities.CarritoActivity
+import com.example.tienda.ui.dialogs.DIalogoComparar
+import com.example.tienda.ui.dialogs.DialogoInformacion
+import com.google.android.material.snackbar.Snackbar
+import java.util.Locale
 
-class MainActivity : AppCompatActivity(), AdapterProducto.OnProductoCarritoListener {
+class MainActivity : AppCompatActivity(),
+    AdapterProducto.OnProductoCarritoListener,
+    DIalogoComparar.OnCompararListener {
 
+    private var producto1: Producto? = null
+    private var producto2: Producto? = null
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapterProducto: AdapterProducto
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        val lista: ArrayList<Producto> = DataSet.lista
+        // quiero obtener la lista de productos de una categoria determinada
+        // categoria
 
-        // 1. SPINNER: Configuración correcta
-        val categorias = arrayListOf("Todas", "muebles", "tecnologia", "ropa")
-        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categorias)
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerCategorias.adapter = spinnerAdapter
-
-        // 2. RECYCLER: Inicialización
-        // Importante: Empezamos con una copia nueva de la lista para no afectar al DataSet original
-        val listaInicial = ArrayList(DataSet.lista)
-        adapterProducto = AdapterProducto(listaInicial, this)
+        adapterProducto = AdapterProducto(lista, this)
 
         if (resources.configuration.orientation == 1) {
-            binding.recyclerProductos.layoutManager = LinearLayoutManager(this)
+            binding.recyclerProductos.layoutManager =
+                LinearLayoutManager(
+                    this,
+                    LinearLayoutManager.VERTICAL, false
+                )
         } else {
-            binding.recyclerProductos.layoutManager = GridLayoutManager(this, 2)
-        }
-        binding.recyclerProductos.adapter = adapterProducto
 
-        acciones()
+            binding.recyclerProductos.layoutManager =
+                GridLayoutManager(
+                    this, 2,
+                    GridLayoutManager.VERTICAL, false
+                )
+        }
+        binding.recyclerProductos.adapter = adapterProducto;
+
+        // acciones()
+
+
     }
 
     fun acciones() {
         binding.spinnerCategorias.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    // Esta función se ejecuta automáticamente al iniciar y al cambiar selección
-                    val categoriaSeleccionada = parent!!.adapter.getItem(position).toString()
-                    ejecutarFiltro(categoriaSeleccionada)
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    var categoriaSeleccionada = parent!!.adapter.getItem(position)
+                    var listaFiltrada = DataSet.getListaFiltrada(
+                        categoriaSeleccionada.toString().lowercase(
+                            Locale.ROOT
+                        )
+                    )
+                    adapterProducto.chageList(listaFiltrada)
+                    // adapterProducto = AdapterProducto(listaFiltrada, this@MainActivity)
+                    // binding.recyclerProductos.adapter = adapterProducto;
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
             }
     }
 
-    // Método centralizado para filtrar
-    private fun ejecutarFiltro(categoria: String) {
-        val listaFiltrada = DataSet.getListaFiltrada(categoria)
-        adapterProducto.chageList(listaFiltrada)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.manu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
+            // ver la activity del carrito
             R.id.menu_carrio -> {
                 val intent = Intent(this, CarritoActivity::class.java)
                 startActivity(intent)
             }
+            // fitrar la lista (no se filtra por el cambio)
             R.id.menu_filtrar -> {
-                // CORREGIDO: Toma la categoría actual del spinner y fuerza el filtrado
-                val categoria = binding.spinnerCategorias.selectedItem.toString()
-                ejecutarFiltro(categoria)
+                val seleccionSpinner = binding.spinnerCategorias.selectedItem.toString()
+                val lista = DataSet.getListaFiltrada(seleccionSpinner)
+                adapterProducto.chageList(lista)
             }
+            // quito el filtro de la lista, y pongo todos los elementos
             R.id.menu_limpiar -> {
-                // Resetea spinner a "Todas" (posición 0) y muestra toda la lista
-                binding.spinnerCategorias.setSelection(0)
-                ejecutarFiltro("Todas")
+                val lista = DataSet.getListaFiltrada("todas")
+                adapterProducto.chageList(lista)
+            }
+
+            R.id.menu_info -> {
+                val dialogoInformacion: DialogoInformacion = DialogoInformacion()
+                dialogoInformacion.show(supportFragmentManager, null)
+            }
+
+            R.id.menu_comparar -> {
+                val dialogoComparar = DIalogoComparar()
+                dialogoComparar.show(supportFragmentManager, null)
             }
         }
-        return true
+        return true;
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        actualizarContadorCarrito()
     }
 
     override fun actualizarContadorCarrito() {
         binding.textoContador.text = DataSet.listaCarrito.size.toString()
     }
 
-    // Al volver del carrito, actualizamos el contador por si se borraron cosas
-    override fun onResume() {
-        super.onResume()
-        actualizarContadorCarrito()
+    override fun compararProducto(producto: Producto) {
+        if (producto1 == null) {
+            producto1 = producto;
+        } else if (producto2 == null) {
+            producto2 = producto;
+        } else {
+            /*producto2 = producto1
+            producto1 = producto*/
+            Snackbar.make(
+                binding.root, "No hay espacio para comprar",
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    override fun onCompararSelected(opcion: String) {
+        Snackbar.make(binding.root, "La opcion seleccionada es ${opcion}", Snackbar.LENGTH_SHORT)
+            .show()
     }
 }
