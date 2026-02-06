@@ -29,6 +29,12 @@
         <action
             android:id="@+id/action_registerFragment_to_diagloRegistroFAIL"
             app:destination="@id/diagloRegistroFAIL" />
+        <argument
+            android:name="correo"
+            app:argType="string" />
+        <argument
+            android:name="pass"
+            app:argType="string" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_main"

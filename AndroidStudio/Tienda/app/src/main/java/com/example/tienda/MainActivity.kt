@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity(),
         actualizarContadorCarrito()
     }
 
-    override fun actualizarContadorCarrito() {
+    override fun actualizarContadorCarrito() {+
         binding.textoContador.text = DataSet.listaCarrito.size.toString()
     }
 
